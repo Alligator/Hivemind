@@ -24,7 +24,15 @@ public class Population {
 
 	public Individual tournamentSelection(int tournamentSize) {
 		Random rnd = new Random();
-        Individual ind = individuals[rnd.nextInt(individuals.length)];
-		return null;
+        double best = 0.0;
+        Individual winner = null;
+        for (int i = 0; i < tournamentSize; i++) {
+			Individual ind = individuals[rnd.nextInt(individuals.length)];
+            if (ind.getFitness() > best) {
+                best = ind.getFitness();
+                winner = ind;
+            }
+        }
+		return winner;
 	}
 }
