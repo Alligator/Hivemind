@@ -14,7 +14,30 @@ public class Individual {
     private double[] coefficients;
     private double fitness;
 
+    public Individual() {
+        
+        
+        
+    }
+    
+
+
     public double getFitness() {
         return fitness;
+    }
+    
+    public double setFitness(double fitness){
+        
+        this.fitness = fitness;
+        return fitness;
+    }
+    
+    public double[] setCoefficients(double[] coefficients){
+        this.coefficients = coefficients;
+        return coefficients;
+    }
+    
+    public double[] getCoefficients(){
+        return coefficients;
     }
 }
