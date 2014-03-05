@@ -10,9 +10,10 @@ package hivemind;
  *
  * @author Gia
  */
-public class Fitness {
+public class Population {
 
-    public Fitness() {
+    public Population() {
+        
     }
     
     
