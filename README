@@ -1,0 +1,37 @@
+Sample points from dat file stored in hashmap (Gia)
+
+Classes
+Induvisual
+Population class array of induvisuals
+    Crossover/Mutation
+Fitness calculation (***Gia)
+
+Methods
+Induvisual class
+    var Double array
+    constructor take range
+        randomly selects coeffcients
+    constructor take coefficients
+    getInduvisual
+    setFitness
+    mutate
+    
+Population class
+    var array of induvisuals
+    constructor of size of pop
+    addInduvisual
+    Calc fitness of each induvisual
+    Roulette Wheel - (***Gia)
+    Tournament - (***Reece)
+    Crossover 
+        if then mutate
+    getFitnessStats
+        average
+        highest
+
+Fitness class   (***Gia)
+    var static hash map (***Gia)
+    readDat (***Gia)
+    getYvalue   (***Gia)
+        compare indvidual y value to this.y value   (***Gia)
+
