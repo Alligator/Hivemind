@@ -6,13 +6,15 @@
 
 package hivemind;
 
+import java.util.Random;
+
 /**
  *
  * @author Gia
  */
 public class Population {
-	private Individual[] individual;
-	private double[] fitness;
+	private Individual[] individuals;
+
     public Population() {
     }
 
@@ -20,7 +22,9 @@ public class Population {
 		return null;
 	}
 
-	public Individual tournamentSelection() {
+	public Individual tournamentSelection(int tournamentSize) {
+		Random rnd = new Random();
+        Individual ind = individuals[rnd.nextInt(individuals.length)];
 		return null;
 	}
 }

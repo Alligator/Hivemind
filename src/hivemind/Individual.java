@@ -11,5 +11,10 @@ package hivemind;
  * @author Gia
  */
 public class Individual {
-//    
+    private double[] coefficients;
+    private double fitness;
+
+    public double getFitness() {
+        return fitness;
+    }
 }
