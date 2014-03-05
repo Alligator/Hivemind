@@ -11,11 +11,16 @@ package hivemind;
  * @author Gia
  */
 public class Population {
-
+	private Individual[] individual;
+	private double[] fitness;
     public Population() {
-        
     }
-    
-    
-    
+
+	public Individual rouletteWheelSelection() {
+		return null;
+	}
+
+	public Individual tournamentSelection() {
+		return null;
+	}
 }
