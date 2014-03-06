@@ -40,4 +40,8 @@ public class Individual {
     public double[] getCoefficients(){
         return coefficients;
     }
+    
+    public void mutate(){
+        //here be mutants
+    }
 }
