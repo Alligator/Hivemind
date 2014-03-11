@@ -21,13 +21,9 @@ public class Fitness {
     BufferedReader br = null;
     private final HashMap<Double, Double> sampleDataPoints; // FINTESS CLASS
     
-            
     public Fitness() {
-
-       
         sampleDataPoints = new HashMap<>(); // FITNESS CLASS
         fillSampleDataPoints(); // FINTESS CLASS
-
     }
    
     
@@ -93,7 +89,6 @@ public class Fitness {
      * @return 
      */
     public double getYValFromFunctionX(double a, double b, double c, double d, double e, double f, double x, boolean print) {
-
         double yVal = a + (b * x) + (c * (Math.pow(x, 2))) + (d * (Math.pow(x, 3))) + (e * (Math.pow(x, 4))) + (f * (Math.pow(x, 5)));
         
         if(print){

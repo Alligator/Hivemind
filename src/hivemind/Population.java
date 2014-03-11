@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hivemind;
 
 import java.util.Arrays;
@@ -21,11 +16,23 @@ public class Population {
     private Fitness fitness;
     private int populationSize;
 
-    public Population(int populationSize) {
-        
-        this.populationSize = populationSize;
-        fitness = new Fitness();
-        allIndividuals = new Individual[populationSize];
+	// the fitness values live in the individuals themselves
+    // private double[] allIndividualsFitness;
+    private double aggregateFitness;
+
+	// fitness can be static as it won't change
+    private static final Fitness fitness = new Fitness();
+	
+    /**
+     * Construct a new, random population
+     * @param size The size of the population to generate
+	 * @param min  The minimum value for the coefficients
+	 * @param max  The maximum value for the coefficients
+     */
+    public Population(int size, int min, int max) {
+		for (int i = 0; i < size; i++) {
+			allIndividuals.add(new Individual(min, max));
+		}
     }
     
     /**
@@ -152,10 +159,6 @@ public class Population {
             i++;
             
         }
-
-        setAggregateFitness();
-        return this.allIndividualsFitness;
-
     }
     
     /**
@@ -172,6 +175,16 @@ public class Population {
 
             aggregateFitness += allIndividualsFitness[i];
 
+    public Individual tournamentSelection(int tournamentSize) {
+        Random rnd = new Random();
+        double best = 0.0;
+        Individual winner = null;
+        for (int i = 0; i < tournamentSize; i++) {
+            Individual ind = allIndividuals.get(rnd.nextInt(allIndividuals.size()));
+            if (ind.getFitness() > best) {
+                best = ind.getFitness();
+                winner = ind;
+            }
         }
         
         return this.aggregateFitness;
