@@ -1,7 +1,6 @@
 package hivemind;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -10,15 +9,12 @@ import java.util.Random;
  */
 public class Population {
 
-    private Individual[] allIndividuals;
-    private double[] allIndividualsFitness;
+	private ArrayList<Individual> allIndividuals;
     private double aggregateFitness;
-    private Fitness fitness;
     private int populationSize;
 
 	// the fitness values live in the individuals themselves
     // private double[] allIndividualsFitness;
-    private double aggregateFitness;
 
 	// fitness can be static as it won't change
     private static final Fitness fitness = new Fitness();
@@ -34,13 +30,27 @@ public class Population {
 			allIndividuals.add(new Individual(min, max));
 		}
     }
+
+	/**
+	 * Construct a new, empty population
+	 */
+	public Population() {
+		// nothing to do yet
+	}
+
+	public void add(Individual ind) {
+		allIndividuals.add(ind);
+	}
+
+	public int getSize() {
+		return allIndividuals.size();
+	}
     
     /**
      * Method to return an individual by  roulette wheel Selection
      * @return Individual
      */
     public Individual rouletteWheelSelection() {
-        
         System.out.println("Roulette Wheel selection now...");
         //System.out.println("aggregate Fitness is  " + this.aggregateFitness);
         //Individual[] individuals = allIndividuals; // get population as array
@@ -87,22 +97,15 @@ public class Population {
          // Now spin the roulette wheel
          
          for (int i = 0; i < rouletteWheel.length; i++) {
+			double roulNum = rouletteWheel[i];
+			System.out.println("Comparing " + roulNum + " with " + lotteryNumber);
 
-                double roulNum = rouletteWheel[i];
-                System.out.println("Comparing " + roulNum + " with " + lotteryNumber);
-
-                if (lotteryNumber < roulNum) {
-
-                    System.out.print("-------^^^----- at index " + i + " ");
-                    selectedIndividual = allIndividuals[i];
-                    break;
-
-                }
-
-            }
-         
-        
-        
+			if (lotteryNumber < roulNum) {
+				System.out.print("-------^^^----- at index " + i + " ");
+				selectedIndividual = allIndividuals[i];
+				break;
+			}
+		}
         //System.out.println("Total percent check is..." + totalPercentCheck);
         
         System.out.println("\n\n\n\n\n\n\n\n\n\n");
@@ -116,7 +119,7 @@ public class Population {
         double best = 0.0;
         Individual winner = null;
         for (int i = 0; i < tournamentSize; i++) {
-            Individual ind = allIndividuals[rnd.nextInt(allIndividuals.length)];
+            Individual ind = allIndividuals.get(rnd.nextInt(allIndividuals.size()));
             if (ind.getFitness() > best) {
                 best = ind.getFitness();
                 winner = ind;
@@ -138,11 +141,8 @@ public class Population {
      * Calls the calcCurveFitness method
      * @return 
      */
-    private double[] setAllIndividualsFitness(){
-        
-       
-        int genSize = allIndividuals.length;
-        this.allIndividualsFitness = new double[genSize];
+    public void setAllIndividualsFitness() {
+        int genSize = getSize();
         int i = 0;
 
         for (Individual indiv : allIndividuals) {
@@ -155,49 +155,18 @@ public class Population {
             double e = indivCoefficients[4];
             double f = indivCoefficients[5];
             double currentFitness = fitness.calculateCurveFitness(a, b, c, d, e, f, false);
-            this.allIndividualsFitness[i] = currentFitness;
+			indiv.setFitness(currentFitness);
             i++;
-            
         }
     }
     
     /**
-     * Method : add up all the fitness values for the given population 
-     * @return double, aggregate fitness
-     */
-    private double setAggregateFitness(){
-        
-        // Reset, then recalculate
-        aggregateFitness = 0;
-        
-        // Iterate through allIndividual Fitnesses and add them up to set the aggregate
-        for (int i = 0; i < allIndividuals.length; i++) {
-
-            aggregateFitness += allIndividualsFitness[i];
-
-    public Individual tournamentSelection(int tournamentSize) {
-        Random rnd = new Random();
-        double best = 0.0;
-        Individual winner = null;
-        for (int i = 0; i < tournamentSize; i++) {
-            Individual ind = allIndividuals.get(rnd.nextInt(allIndividuals.size()));
-            if (ind.getFitness() > best) {
-                best = ind.getFitness();
-                winner = ind;
-            }
-        }
-        
-        return this.aggregateFitness;
-    }
-     
-    /**
      * Get all the fitness values from the stored array of population fitness values
      * @return double[], fitness for each member of the population
      */
-    public double[] getPopulationFitness(){
+    public double[] getPopulationFitness() {
         setAllIndividualsFitness();
         return this.allIndividualsFitness;
-        
     }
     
     /**
@@ -205,7 +174,6 @@ public class Population {
      * @return Array of Individuals
      */
     public Individual[] getPopulation(){
-        
         return allIndividuals;
     }
     
@@ -215,14 +183,10 @@ public class Population {
      * @param max // max value of coefficients
      */
     public void makePopulation(int min, int max){
-        
         for(int i = 0; i<populationSize; i++){
-            
             Individual individual = makeIndividual(min, max);
             this.allIndividuals[i] = individual;
-            
         }
-        
     }
     
     /**
@@ -232,10 +196,8 @@ public class Population {
      * @return 
      */
     public Individual makeIndividual(int min, int max){
-        
         Individual individual = new Individual(min,max);
         double[] indivCoefficients = individual.getCoefficients();
         return individual;
-        
     }
 }
