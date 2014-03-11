@@ -28,18 +28,12 @@ public class Individual {
     public Individual(int rangeMin, int rangeMax) {
         this.rangeMax=rangeMax;
         this.rangeMin=rangeMin;
-        for(int i=0;i<coefficients.length;i++){
+        coefficients = new double[6];
+        for(int i=0;i<coefficients.length ;i++){
             coefficients[i]=rangeMin+rand.nextDouble()*((rangeMax-rangeMin));
         }
     }
-    
-    /**
-     * Constructor for sending in an array of coefficients
-     * @param coefficients from a new population
-     */
-    public Individual(double[] coefficients){
-        this.coefficients=coefficients;
-    }
+      
     
      /**
      * set the fitness of this individual

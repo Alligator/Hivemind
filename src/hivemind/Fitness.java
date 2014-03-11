@@ -30,7 +30,18 @@ public class Fitness {
 
     }
    
-    //Method to print ou the GNU commands for plotting
+    
+    /**
+     * Method to print ou the GNU commands for plotting
+     * @param filePath // your local file path
+     * @param a
+     * @param b
+     * @param c
+     * @param d
+     * @param e
+     * @param f
+     * @return 
+     */
     public String printPlotGNUCommands(String filePath, double a, double b, double c, double d, double e, double f) {
 
         String command = "plot \"" + filePath + "\", " + a + " + (" + b + "*x)+ " + "(" + c + "*(x**2))+" + "(" + d + "*(x**3))+" + "(" + e + "*(x**4)) + " + "(" + f + "*(x**5))";
@@ -38,7 +49,7 @@ public class Fitness {
 
     }
  
-    //Method to calculate the current curve fitness
+    //Method to calculate the current curve fitness.  // Fitness is more fit the closer it is to zero
     public double calculateCurveFitness(double a, double b, double c, double d, double e, double f, boolean print) {
 
         double fitness = 0;
@@ -69,7 +80,18 @@ public class Fitness {
 
     }
     
-    // Work out the Value Y for any given value X, and any given curve with coefficients a,b,c,d,e,f
+    /**
+     * Work out the Value Y for any given value X, and any given curve with coefficients a,b,c,d,e,f
+     * @param a
+     * @param b
+     * @param c
+     * @param d
+     * @param e
+     * @param f
+     * @param x // any sample X value
+     * @param print // if boolean print, it prints out stats
+     * @return 
+     */
     public double getYValFromFunctionX(double a, double b, double c, double d, double e, double f, double x, boolean print) {
 
         double yVal = a + (b * x) + (c * (Math.pow(x, 2))) + (d * (Math.pow(x, 3))) + (e * (Math.pow(x, 4))) + (f * (Math.pow(x, 5)));
@@ -81,7 +103,10 @@ public class Fitness {
 
     }
     
-    //Constructor method to fill sampleData points in the hash map, from the data graph
+    /**
+     * Constructor method 
+     * Fill sampleData points in the hash map, from the data graph
+     */
     private void fillSampleDataPoints() {
 
         sampleDataPoints.put(-25.0, 1247265.625);
@@ -663,7 +688,12 @@ public class Fitness {
         sampleDataPoints.put(900.0, 20420550000.0);
     }
 
-    //NOT needed : just a method to print out the hash map from the data file
+    /**
+     * Don't Need : method to print out the hash map from the data file
+     * @param numLines
+     * @param printDetails 
+     */
+
     public void printHashMap(int numLines, boolean printDetails){
         
         if(printDetails){
@@ -684,7 +714,12 @@ public class Fitness {
        
     }
     
-    // NOT needed - buffered reader to read the file
+    /**
+     * Don't NEED : Buffered reader to read a file.  
+     * @param numLines
+     * @return 
+     */
+  
     private String readFile(int numLines){
         
         String line = "";
