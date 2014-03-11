@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class Population {
 
-	private ArrayList<Individual> allIndividuals;
+    private ArrayList<Individual> allIndividuals;
     private double aggregateFitness;
     private int populationSize;
 
@@ -60,72 +60,76 @@ public class Population {
      * Method to return an individual by  roulette wheel Selection
      * @return Individual
      */
-	/*
-    public Individual rouletteWheelSelection() {
+	   public Individual rouletteWheelSelection() {
+
         System.out.println("Roulette Wheel selection now...");
         //System.out.println("aggregate Fitness is  " + this.aggregateFitness);
         //Individual[] individuals = allIndividuals; // get population as array
-        //double[] popFitness = allIndividualsFitness; // get population fitness array
+        //double[] allIndividualsFitness; // get population fitness array
         //double popAggregateFitness = aggregateFitness;
-        double[] rouletteWheel = new double[allIndividuals.length];
+        double[] rouletteWheel = new double[allIndividuals.size()];
         double lotteryNumber = Math.random();
         double totalPercentCheck = 0.0;
         double invertedTotal = 0.0;
         double finalTotalPercentCheck = 0.0;
-        double fitnessPercentOfEach[] = new double[allIndividuals.length];
-        double invertedFitnessOfEach[] = new double[allIndividuals.length];
-        Individual selectedIndividual = new Individual(0,1);
-       
-        
-        for(int i=0; i<allIndividuals.length; i++){
-            
-            double currentFitness = allIndividualsFitness[i];
+        double fitnessPercentOfEach[] = new double[allIndividuals.size()];
+        double invertedFitnessOfEach[] = new double[allIndividuals.size()];
+        Individual selectedIndividual = new Individual(0, 1);
+
+        Individual allIndividualsTmp[] = new Individual[allIndividuals.size()];
+
+        for (int i = 0; i < allIndividuals.size(); i++) {
+
+            allIndividualsTmp[i] = allIndividuals.get(i);
+        }
+
+        for (int i = 0; i < allIndividuals.size(); i++) {
+
+            double currentFitness = allIndividualsTmp[i].getFitness();
             double fitnessRatio = currentFitness / aggregateFitness;
             fitnessPercentOfEach[i] = fitnessRatio;
             System.out.println("FitnessRatio is " + fitnessRatio);
             totalPercentCheck += fitnessPercentOfEach[i];
-            
+
         }
-        
-        
+
         // Invert the fitness ratio, because the fittest are closest to zero
         // This is stored in an array
-        for(int i=0; i<allIndividuals.length; i++){
-            
+        // This can't be done in the previous for loop, because it needs the total percent check
+        for (int i = 0; i < allIndividuals.size(); i++) {
+
             invertedFitnessOfEach[i] = totalPercentCheck - fitnessPercentOfEach[i];
             invertedTotal += invertedFitnessOfEach[i];
         }
-        
+
         // Set up the roulette Wheel
-         for(int i=0; i<allIndividuals.length; i++){
-            
+        // This can't be done in the previous for loop, because it needs the inverted total
+        for (int i = 0; i < allIndividuals.size(); i++) {
+
             finalTotalPercentCheck += invertedFitnessOfEach[i] / invertedTotal;
             rouletteWheel[i] = finalTotalPercentCheck;
             System.out.println(rouletteWheel[i]);
-           
-        }
-         
-         // Now spin the roulette wheel
-         
-         for (int i = 0; i < rouletteWheel.length; i++) {
-			double roulNum = rouletteWheel[i];
-			System.out.println("Comparing " + roulNum + " with " + lotteryNumber);
 
-			if (lotteryNumber < roulNum) {
-				System.out.print("-------^^^----- at index " + i + " ");
-				selectedIndividual = allIndividuals[i];
-				break;
-			}
-		}
+        }
+
+         // Now spin the roulette wheel
+        for (int i = 0; i < rouletteWheel.length; i++) {
+            double roulNum = rouletteWheel[i];
+            System.out.println("Comparing " + roulNum + " with " + lotteryNumber);
+
+            if (lotteryNumber < roulNum) {
+                System.out.print("-------^^^----- at index " + i + " ");
+                selectedIndividual = allIndividualsTmp[i];
+                break;
+            }
+        }
         //System.out.println("Total percent check is..." + totalPercentCheck);
-        
+
         System.out.println("\n\n\n\n\n\n\n\n\n\n");
-        
+
         return selectedIndividual;
     }
-	*/
 
-     
     public Individual tournamentSelection(int tournamentSize) {
         Random rnd = new Random();
         double best = 0.0;
@@ -139,19 +143,21 @@ public class Population {
         }
         return winner;
     }
-    
+
     /**
      * Get the total fitness for the whole population (aggregate fitness)
+     *
      * @return double value, aggregate fitness of whole population
      */
-    public double getAggregateFitness(){
+    public double getAggregateFitness() {
         return this.aggregateFitness;
     }
-    
+
     /**
-     * Method : Set the each Individual's fitness for the whole population
-     * Calls the calcCurveFitness method
-     * @return 
+     * Method : Set the each Individual's fitness for the whole population Calls
+     * the calcCurveFitness method
+     *
+     * @return
      */
     public void setAllIndividualsFitness() {
         int genSize = getSize();
@@ -167,46 +173,48 @@ public class Population {
             double e = indivCoefficients[4];
             double f = indivCoefficients[5];
             double currentFitness = fitness.calculateCurveFitness(a, b, c, d, e, f, false);
-			indiv.setFitness(currentFitness);
+            indiv.setFitness(currentFitness);
             i++;
         }
     }
-    
+
     /**
-     * Get all the fitness values from the stored array of population fitness values
+     * Get all the fitness values from the stored array of population fitness
+     * values
+     *
      * @return double[], fitness for each member of the population
      */
-	/*
-    public double[] getPopulationFitness() {
-        setAllIndividualsFitness();
-        return this.allIndividualsFitness;
-    }
-	*/
-    
+    /*
+     public double[] getPopulationFitness() {
+     setAllIndividualsFitness();
+     return this.allIndividualsFitness;
+     }
+     */
     /**
-     * Get the population 
+     * Get the population
+     *
      * @return Array of Individuals
      */
-	/*
-    public Individual[] getPopulation(){
-        return allIndividuals;
-    }
-	*/
-    
+    /*
+     public Individual[] getPopulation(){
+     return allIndividuals;
+     }
+     */
     /**
      * Generate a population
+     *
      * @param min // min value of coefficients
      * @param max // max value of coefficients
      */
-	/*
-    public void makePopulation(int min, int max){
-        for(int i = 0; i<populationSize; i++){
-            Individual individual = makeIndividual(min, max);
-            this.allIndividuals[i] = individual;
-        }
-    }
-	*/
-    
+    /*
+     public void makePopulation(int min, int max){
+     for(int i = 0; i<populationSize; i++){
+     Individual individual = makeIndividual(min, max);
+     this.allIndividuals[i] = individual;
+     }
+     }
+     */
+
     /**
      * Makes one individual
      * @param min //value range min for coefficients to generate
