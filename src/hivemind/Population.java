@@ -1,6 +1,7 @@
 package hivemind;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -26,16 +27,25 @@ public class Population {
 	 * @param max  The maximum value for the coefficients
      */
     public Population(int size, int min, int max) {
+		allIndividuals = new ArrayList<Individual>();
 		for (int i = 0; i < size; i++) {
 			allIndividuals.add(new Individual(min, max));
 		}
     }
 
+	public void print() {
+		for (Individual ind : allIndividuals) {
+			System.out.print(Arrays.toString(ind.getCoefficients()));
+			System.out.print(" ");
+			System.out.println(ind.getFitness());
+		}
+	}
+
 	/**
 	 * Construct a new, empty population
 	 */
 	public Population() {
-		// nothing to do yet
+		allIndividuals = new ArrayList<Individual>();
 	}
 
 	public void add(Individual ind) {
@@ -50,6 +60,7 @@ public class Population {
      * Method to return an individual by  roulette wheel Selection
      * @return Individual
      */
+	/*
     public Individual rouletteWheelSelection() {
         System.out.println("Roulette Wheel selection now...");
         //System.out.println("aggregate Fitness is  " + this.aggregateFitness);
@@ -112,6 +123,7 @@ public class Population {
         
         return selectedIndividual;
     }
+	*/
 
      
     public Individual tournamentSelection(int tournamentSize) {
@@ -164,30 +176,36 @@ public class Population {
      * Get all the fitness values from the stored array of population fitness values
      * @return double[], fitness for each member of the population
      */
+	/*
     public double[] getPopulationFitness() {
         setAllIndividualsFitness();
         return this.allIndividualsFitness;
     }
+	*/
     
     /**
      * Get the population 
      * @return Array of Individuals
      */
+	/*
     public Individual[] getPopulation(){
         return allIndividuals;
     }
+	*/
     
     /**
      * Generate a population
      * @param min // min value of coefficients
      * @param max // max value of coefficients
      */
+	/*
     public void makePopulation(int min, int max){
         for(int i = 0; i<populationSize; i++){
             Individual individual = makeIndividual(min, max);
             this.allIndividuals[i] = individual;
         }
     }
+	*/
     
     /**
      * Makes one individual

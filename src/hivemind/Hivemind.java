@@ -93,6 +93,7 @@ public class Hivemind {
 //        // Print everything to do with the population
 //        System.out.println("Population Fitness as aggregate is.." + popAggregateFitness);
 //       
+		run(2);
     }
 
     public static void run(int iterations) {
@@ -108,12 +109,13 @@ public class Hivemind {
 		Population population = new Population(100, -1000, 1000);
 
 		for (int i = 0; i < iterations; i++) {
-			for (int j = 0; j < population.getSize(); j++) {
-				population.setAllIndividualsFitness();
-				// for the size of the population (so it doesn't change) ...
+			population.setAllIndividualsFitness();
+			population.print();
+			System.out.println("------------------");
+			Population newPopulation = new Population();
 
-				// make a blank population
-				Population newPopulation = new Population();
+			for (int j = 0; j < population.getSize(); j++) {
+				// for the size of the population (so it doesn't change) ...
 				if (crossover) {
 					// select two individuals for crossover
 					Individual ind1 = population.tournamentSelection(tournamentSize);
@@ -127,8 +129,8 @@ public class Hivemind {
 					// add the result to the new population
 					newPopulation.add(result);
 				}
-				population = newPopulation;
 			}
+			population = newPopulation;
 		}
     }
 
