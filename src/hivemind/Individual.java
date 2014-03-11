@@ -44,6 +44,13 @@ public class Individual {
         this.fitness = fitness;
         return fitness;
     }
+
+	public int getMax() {
+		return rangeMax;
+	}
+	public int getMin() {
+		return rangeMin;
+	}
     
     /**
      * returns the fitness of this individual
