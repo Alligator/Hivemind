@@ -62,6 +62,7 @@ public class Hivemind {
         
 //---------------------------------- Population Class -------------------------------------//
         
+		/*
         Population pop = new Population(5); // 100 is population size
         pop.makePopulation(0,1); // min max of coefficients length
         Individual[] individuals = pop.getPopulation(); // get population as array
@@ -69,6 +70,7 @@ public class Hivemind {
         double popAggregateFitness = pop.getAggregateFitness();
         Individual fittestIndividual = pop.rouletteWheelSelection();
         System.out.println("Selected Individual is.....\n" + Arrays.toString(fittestIndividual.getCoefficients()));
+		*/
         
       
         
@@ -107,6 +109,7 @@ public class Hivemind {
 
 		for (int i = 0; i < iterations; i++) {
 			for (int j = 0; j < population.getSize(); j++) {
+				population.setAllIndividualsFitness();
 				// for the size of the population (so it doesn't change) ...
 
 				// make a blank population
@@ -124,7 +127,22 @@ public class Hivemind {
 					// add the result to the new population
 					newPopulation.add(result);
 				}
+				population = newPopulation;
 			}
 		}
     }
+
+	/**
+	 * Brain dead fixed point crossover
+	 * @param ind1  The individual to take the first three coefficients from
+	 * @param ind2  The individual to take the second three coefficients from
+	 * @return      The new individual
+	 */
+	private static Individual crossover(Individual ind1, Individual ind2) {
+		double[] c1 = ind1.getCoefficients();
+		double[] c2 = ind2.getCoefficients();
+		Individual result = new Individual(ind1.getMin(), ind1.getMax());
+		result.setCoefficients(new double[]{c1[0], c1[1], c1[2], c2[3], c2[4], c2[5]});
+		return result;
+	}
 }
