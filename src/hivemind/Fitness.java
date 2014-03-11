@@ -21,13 +21,9 @@ public class Fitness {
     BufferedReader br = null;
     private final HashMap<Double, Double> sampleDataPoints; // FINTESS CLASS
     
-            
     public Fitness() {
-
-       
         sampleDataPoints = new HashMap<>(); // FITNESS CLASS
         fillSampleDataPoints(); // FINTESS CLASS
-
     }
    
     //Method to print ou the GNU commands for plotting
@@ -71,7 +67,6 @@ public class Fitness {
     
     // Work out the Value Y for any given value X, and any given curve with coefficients a,b,c,d,e,f
     public double getYValFromFunctionX(double a, double b, double c, double d, double e, double f, double x, boolean print) {
-
         double yVal = a + (b * x) + (c * (Math.pow(x, 2))) + (d * (Math.pow(x, 3))) + (e * (Math.pow(x, 4))) + (f * (Math.pow(x, 5)));
         
         if(print){

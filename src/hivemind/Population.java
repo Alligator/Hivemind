@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hivemind;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 
@@ -14,48 +10,64 @@ import java.util.Random;
  */
 public class Population {
 
-    private Individual[] allIndividuals;
-    private double[] allIndividualsFitness;
-    private double aggregateFitness;
-    private Fitness fitness;
+	// Made this an arraylist to make life easier
+	private ArrayList<Individual> allIndividuals;
 
-    public Population() {
-        
-        fitness = new Fitness();
+	// the fitness values live in the individuals themselves
+    // private double[] allIndividualsFitness;
+    private double aggregateFitness;
+
+	// fitness can be static as it won't change
+    private static final Fitness fitness = new Fitness();
+	
+    /**
+     * Construct a new, random population
+     * @param size The size of the population to generate
+	 * @param min  The minimum value for the coefficients
+	 * @param max  The maximum value for the coefficients
+     */
+    public Population(int size, int min, int max) {
+		for (int i = 0; i < size; i++) {
+			allIndividuals.add(new Individual(min, max));
+		}
     }
+
+	/**
+	 * Construct a new, empty population
+	 */
+	public Population() {
+		// nothing to do yet
+	}
+
+	public void add(Individual ind) {
+		allIndividuals.add(ind);
+	}
+
+	public int getSize() {
+		return allIndividuals.size();
+	}
 
     // Method : add up all the fitnesses for the given population // Gia
     // needs testing
     private double setAggregateFitness(){
-        
         // Reset, then recalculate
         aggregateFitness = 0;
         
         // Iterate through allIndividual Fitnesses and add them up to set the aggregate
         for (int i = 0; i < allIndividuals.length; i++) {
-
             aggregateFitness += allIndividualsFitness[i];
-
         }
         
         return this.aggregateFitness;
     }
     
-    //Method : Set the each fitness of the population, for roulette wheel // Gia
+    // Method : Set the each fitness of the population, for roulette wheel // Gia
     // needs testing
-    private double[] setallIndividualsFitness(boolean print){
-        
-        //Method to iterate through any generation of curve coeff sets and output a fitness for each
+    private void setallIndividualsFitness(){
+		// NOTE FROM REECE: I'm going to refactor the print stuff so there doesn't need to be conditionals everywhere
+        // Method to iterate through any generation of curve coeff sets and output a fitness for each
    
-        if(print){
-             
-            System.out.println("-------Calculating aggregate Fitness-----setAggregateFitness()");
-            
-        }
-        int genSize = allIndividuals.length;
-        this.allIndividualsFitness = new double[genSize];
-        int i = 0;
-
+		System.out.println("-------Calculating aggregate Fitness-----setAggregateFitness()");
         for (Individual indiv : allIndividuals) {
 
             double[] indivCoefficients = indiv.getCoefficients();
@@ -66,17 +78,10 @@ public class Population {
             double e = indivCoefficients[4];
             double f = indivCoefficients[5];
             double currentFitness = fitness.calculateCurveFitness(a, b, c, d, e, f, false);
-            this.allIndividualsFitness[i] = currentFitness;
-            i++;
+			indiv.setFitness(currentFitness);
 
-            if (print) {
-                System.out.println("---------------CurrentFitness  is.." + currentFitness + "-----------------------\n");
-            }
+			System.out.println("---------------CurrentFitness  is.." + currentFitness + "-----------------------\n");
         }
-
-        setAggregateFitness();
-        return this.allIndividualsFitness;
-
     }
 
     // Method to set roulette Wheel Selection //Gia // needs finishing
@@ -89,7 +94,7 @@ public class Population {
         double best = 0.0;
         Individual winner = null;
         for (int i = 0; i < tournamentSize; i++) {
-            Individual ind = allIndividuals[rnd.nextInt(allIndividuals.length)];
+            Individual ind = allIndividuals.get(rnd.nextInt(allIndividuals.size()));
             if (ind.getFitness() > best) {
                 best = ind.getFitness();
                 winner = ind;

@@ -56,10 +56,43 @@ public class Hivemind {
         
 //---------------------------------- Population Class -------------------------------------//
         
-        Population pop = new Population();
-        
         print = true;
         //double[][] currentPopulation = pop.getPopulation(print);
+		run(1);
     }
-    
+
+    public static void run(int iterations) {
+		// not intended to work, just hammering out details
+
+		// these will be some kind of probability function in the final version
+		boolean crossover = true;
+		boolean mutation = true;
+
+		int tournamentSize = 3;
+
+		// initial population
+		Population population = new Population(100, -1000, 1000);
+
+		for (int i = 0; i < iterations; i++) {
+			for (int j = 0; j < population.getSize(); j++) {
+				// for the size of the population (so it doesn't change) ...
+
+				// make a blank population
+				Population newPopulation = new Population();
+				if (crossover) {
+					// select two individuals for crossover
+					Individual ind1 = population.tournamentSelection(tournamentSize);
+					Individual ind2 = population.tournamentSelection(tournamentSize);
+
+					// not sure where crossover will live yet
+					Individual result = crossover(ind1, ind2);
+					if (mutation) {
+						result.mutate();
+					}
+					// add the result to the new population
+					newPopulation.add(result);
+				}
+			}
+		}
+    }
 }
