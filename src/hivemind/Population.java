@@ -12,6 +12,7 @@ public class Population {
 
     private ArrayList<Individual> allIndividuals;
     private double aggregateFitness;
+	private double minimumFitness;
     private int populationSize;
 
 	// the fitness values live in the individuals themselves
@@ -55,6 +56,10 @@ public class Population {
 	public int getSize() {
 		return allIndividuals.size();
 	}
+
+	public double getMinimumFitness() {
+		return minimumFitness;
+	}
     
     /**
      * Method to return an individual by  roulette wheel Selection
@@ -62,7 +67,7 @@ public class Population {
      */
 	   public Individual rouletteWheelSelection() {
 
-        System.out.println("Roulette Wheel selection now...");
+        // System.out.println("Roulette Wheel selection now...");
         //System.out.println("aggregate Fitness is  " + this.aggregateFitness);
         //Individual[] individuals = allIndividuals; // get population as array
         //double[] allIndividualsFitness; // get population fitness array
@@ -88,7 +93,7 @@ public class Population {
             double currentFitness = allIndividualsTmp[i].getFitness();
             double fitnessRatio = currentFitness / aggregateFitness;
             fitnessPercentOfEach[i] = fitnessRatio;
-            System.out.println("FitnessRatio is " + fitnessRatio);
+            // System.out.println("FitnessRatio is " + fitnessRatio);
             totalPercentCheck += fitnessPercentOfEach[i];
 
         }
@@ -108,29 +113,30 @@ public class Population {
 
             finalTotalPercentCheck += invertedFitnessOfEach[i] / invertedTotal;
             rouletteWheel[i] = finalTotalPercentCheck;
-            System.out.println(rouletteWheel[i]);
+            // System.out.println(rouletteWheel[i]);
 
         }
 
          // Now spin the roulette wheel
         for (int i = 0; i < rouletteWheel.length; i++) {
             double roulNum = rouletteWheel[i];
-            System.out.println("Comparing " + roulNum + " with " + lotteryNumber);
+            // System.out.println("Comparing " + roulNum + " with " + lotteryNumber);
 
             if (lotteryNumber < roulNum) {
-                System.out.print("-------^^^----- at index " + i + " ");
+                // System.out.print("-------^^^----- at index " + i + " ");
                 selectedIndividual = allIndividualsTmp[i];
                 break;
             }
         }
         //System.out.println("Total percent check is..." + totalPercentCheck);
 
-        System.out.println("\n\n\n\n\n\n\n\n\n\n");
+        // System.out.println("\n\n\n\n\n\n\n\n\n\n");
 
         return selectedIndividual;
     }
 
     public Individual tournamentSelection(int tournamentSize) {
+		// INVERT
         Random rnd = new Random();
         double best = 0.0;
         Individual winner = null;
@@ -162,6 +168,8 @@ public class Population {
     public void setAllIndividualsFitness() {
         int genSize = getSize();
         int i = 0;
+		double sum = 0.0;
+		double min = Double.MAX_VALUE;
 
         for (Individual indiv : allIndividuals) {
 
@@ -175,7 +183,12 @@ public class Population {
             double currentFitness = fitness.calculateCurveFitness(a, b, c, d, e, f, false);
             indiv.setFitness(currentFitness);
             i++;
+			sum += currentFitness;
+			if (currentFitness < min)
+				min = currentFitness;
         }
+		aggregateFitness = sum;
+		minimumFitness = min;
     }
 
     /**
