@@ -23,7 +23,8 @@ public class Fitness {
     
     public Fitness() {
         sampleDataPoints = new HashMap<>(); // FITNESS CLASS
-        fillSampleDataPoints(); // FINTESS CLASS
+        // fillSampleDataPoints(); // FINTESS CLASS
+        fillTestDataPoints(); // FINTESS CLASS
     }
    
     
@@ -98,6 +99,109 @@ public class Fitness {
 
     }
     
+	private void fillTestDataPoints() {
+		sampleDataPoints.put(-25.0, -15625.0);
+		sampleDataPoints.put(-16.75, -4699.421875);
+		sampleDataPoints.put(-8.5, -614.125);
+		sampleDataPoints.put(-0.25, -0.015625);
+		sampleDataPoints.put(8.0, 512.0);
+		sampleDataPoints.put(16.25, 4291.015625);
+		sampleDataPoints.put(24.5, 14706.125);
+		sampleDataPoints.put(32.75, 35126.421875);
+		sampleDataPoints.put(41.0, 68921.0);
+		sampleDataPoints.put(49.25, 119458.953125);
+		sampleDataPoints.put(57.5, 190109.375);
+		sampleDataPoints.put(65.75, 284241.359375);
+		sampleDataPoints.put(74.0, 405224.0);
+		sampleDataPoints.put(82.25, 556426.390625);
+		sampleDataPoints.put(90.5, 741217.625);
+		sampleDataPoints.put(98.75, 962966.796875);
+		sampleDataPoints.put(107.0, 1225043.0);
+		sampleDataPoints.put(115.25, 1530815.328125);
+		sampleDataPoints.put(123.5, 1883652.875);
+		sampleDataPoints.put(131.75, 2286924.734375);
+		sampleDataPoints.put(140.0, 2744000.0);
+		sampleDataPoints.put(148.25, 3258247.765625);
+		sampleDataPoints.put(156.5, 3833037.125);
+		sampleDataPoints.put(164.75, 4471737.171875);
+		sampleDataPoints.put(173.0, 5177717.0);
+		sampleDataPoints.put(181.25, 5954345.703125);
+		sampleDataPoints.put(189.5, 6804992.375);
+		sampleDataPoints.put(197.75, 7733026.109375);
+		sampleDataPoints.put(206.0, 8741816.0);
+		sampleDataPoints.put(214.25, 9834731.140625);
+		sampleDataPoints.put(222.5, 1.1015140625E7);
+		sampleDataPoints.put(230.75, 1.2286413546875E7);
+		sampleDataPoints.put(239.0, 1.3651919E7);
+		sampleDataPoints.put(247.25, 1.5115026078125E7);
+		sampleDataPoints.put(255.5, 1.6679103875E7);
+		sampleDataPoints.put(263.75, 1.8347521484375E7);
+		sampleDataPoints.put(272.0, 2.0123648E7);
+		sampleDataPoints.put(280.25, 2.2010852515625E7);
+		sampleDataPoints.put(288.5, 2.4012504125E7);
+		sampleDataPoints.put(296.75, 2.6131971921875E7);
+		sampleDataPoints.put(305.0, 2.8372625E7);
+		sampleDataPoints.put(313.25, 3.0737832453125E7);
+		sampleDataPoints.put(321.5, 3.3230963375E7);
+		sampleDataPoints.put(329.75, 3.5855386859375E7);
+		sampleDataPoints.put(338.0, 3.8614472E7);
+		sampleDataPoints.put(346.25, 4.1511587890625E7);
+		sampleDataPoints.put(354.5, 4.4550103625E7);
+		sampleDataPoints.put(362.75, 4.7733388296875E7);
+		sampleDataPoints.put(371.0, 5.1064811E7);
+		sampleDataPoints.put(379.25, 5.4547740828125E7);
+		sampleDataPoints.put(387.5, 5.8185546875E7);
+		sampleDataPoints.put(395.75, 6.1981598234375E7);
+		sampleDataPoints.put(404.0, 6.5939264E7);
+		sampleDataPoints.put(412.25, 7.0061913265625E7);
+		sampleDataPoints.put(420.5, 7.4352915125E7);
+		sampleDataPoints.put(428.75, 7.8815638671875E7);
+		sampleDataPoints.put(437.0, 8.3453453E7);
+		sampleDataPoints.put(445.25, 8.8269727203125E7);
+		sampleDataPoints.put(453.5, 9.3267830375E7);
+		sampleDataPoints.put(461.75, 9.8451131609375E7);
+		sampleDataPoints.put(470.0, 1.03823E8);
+		sampleDataPoints.put(478.25, 1.09386804640625E8);
+		sampleDataPoints.put(486.5, 1.15145914625E8);
+		sampleDataPoints.put(494.75, 1.21103699046875E8);
+		sampleDataPoints.put(503.0, 1.27263527E8);
+		sampleDataPoints.put(511.25, 1.33628767578125E8);
+		sampleDataPoints.put(519.5, 1.40202789875E8);
+		sampleDataPoints.put(527.75, 1.46988962984375E8);
+		sampleDataPoints.put(536.0, 1.53990656E8);
+		sampleDataPoints.put(544.25, 1.61211238015625E8);
+		sampleDataPoints.put(552.5, 1.68654078125E8);
+		sampleDataPoints.put(560.75, 1.76322545421875E8);
+		sampleDataPoints.put(569.0, 1.84220009E8);
+		sampleDataPoints.put(577.25, 1.92349837953125E8);
+		sampleDataPoints.put(585.5, 2.00715401375E8);
+		sampleDataPoints.put(593.75, 2.09320068359375E8);
+		sampleDataPoints.put(602.0, 2.18167208E8);
+		sampleDataPoints.put(610.25, 2.27260189390625E8);
+		sampleDataPoints.put(618.5, 2.36602381625E8);
+		sampleDataPoints.put(626.75, 2.46197153796875E8);
+		sampleDataPoints.put(635.0, 2.56047875E8);
+		sampleDataPoints.put(643.25, 2.66157914328125E8);
+		sampleDataPoints.put(651.5, 2.76530640875E8);
+		sampleDataPoints.put(659.75, 2.87169423734375E8);
+		sampleDataPoints.put(668.0, 2.98077632E8);
+		sampleDataPoints.put(676.25, 3.09258634765625E8);
+		sampleDataPoints.put(684.5, 3.20715801125E8);
+		sampleDataPoints.put(692.75, 3.32452500171875E8);
+		sampleDataPoints.put(701.0, 3.44472101E8);
+		sampleDataPoints.put(709.25, 3.56777972703125E8);
+		sampleDataPoints.put(717.5, 3.69373484375E8);
+		sampleDataPoints.put(725.75, 3.82262005109375E8);
+		sampleDataPoints.put(734.0, 3.95446904E8);
+		sampleDataPoints.put(742.25, 4.08931550140625E8);
+		sampleDataPoints.put(750.5, 4.22719312625E8);
+		sampleDataPoints.put(758.75, 4.36813560546875E8);
+		sampleDataPoints.put(767.0, 4.51217663E8);
+		sampleDataPoints.put(775.25, 4.65934989078125E8);
+		sampleDataPoints.put(783.5, 4.80968907875E8);
+		sampleDataPoints.put(791.75, 4.96322788484375E8);
+		sampleDataPoints.put(800.0, 5.12E8);
+	}
     /**
      * Constructor method 
      * Fill sampleData points in the hash map, from the data graph

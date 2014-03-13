@@ -95,7 +95,7 @@ public class Hivemind {
 //        // Print everything to do with the population
 //        System.out.println("Population Fitness as aggregate is.." + popAggregateFitness);
 //       
-		run(100);
+		run(50000);
     }
 
     public static void run(int iterations) {
@@ -103,31 +103,35 @@ public class Hivemind {
 
 		// these will be some kind of probability function in the final version
 		boolean crossover = true;
-		double mutationRate = 1.0 - 0.95;
+		double mutationRate = 0.1;
 
 		Random rnd = new Random();
 
-		int tournamentSize = 3;
+		int tournamentSize = 2;
 
 		// initial population
-		Population population = new Population(100, -100000, 100000);
-
-		DecimalFormat df = new DecimalFormat("#.########");
+		Population population = new Population(100, 0, 2);
 
 		for (int i = 0; i < iterations; i++) {
 			population.setAllIndividualsFitness();
-			// population.print();
-			System.out.println(population.getAggregateFitness()/population.getSize());
-			System.out.println(population.getMinimumFitness());
-			System.out.println("------------------");
+			if (i % 100 == 0) {
+				// population.print();
+				System.out.println(population.getAggregateFitness()/population.getSize());
+				System.out.println(population.getMinimumFitness());
+				System.out.println("------------------");
+			}
 			Population newPopulation = new Population();
+
+			// newPopulation.add(population.bestIndividual);
 
 			for (int j = 0; j < population.getSize(); j++) {
 				// for the size of the population (so it doesn't change) ...
 				if (crossover) {
 					// select two individuals for crossover
-					Individual ind1 = population.rouletteWheelSelection();
-					Individual ind2 = population.rouletteWheelSelection();
+					Individual ind1 = population.tournamentSelection(tournamentSize);
+					Individual ind2 = population.tournamentSelection(tournamentSize);
+					// Individual ind1 = population.rouletteWheelSelection();
+					// Individual ind2 = population.rouletteWheelSelection();
 
 					// not sure where crossover will live yet
 					Individual result = crossover(ind1, ind2);
@@ -142,6 +146,11 @@ public class Hivemind {
 			}
 			population = newPopulation;
 		}
+
+		population.setAllIndividualsFitness();
+		Fitness f = new Fitness();
+		double[] b = population.bestIndividual.getCoefficients();
+		System.out.println(f.printPlotGNUCommands("", b[0], b[1], b[2], b[3], b[4], b[5]));
     }
 
 	/**
@@ -153,7 +162,7 @@ public class Hivemind {
 	private static Individual crossover(Individual ind1, Individual ind2) {
 		double[] c1 = ind1.getCoefficients();
 		double[] c2 = ind2.getCoefficients();
-		Individual result = new Individual(new double[]{c1[0], c1[1], c1[2], c2[3], c2[4], c2[5]}, ind1.getMin(), ind1.getMax());
+		Individual result = new Individual(new double[]{c1[0], c2[1], c1[2], c2[3], c1[4], c2[5]}, ind1.getMin(), ind1.getMax());
 		return result;
 	}
 }

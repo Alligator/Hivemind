@@ -20,6 +20,9 @@ public class Population {
 
 	// fitness can be static as it won't change
     private static final Fitness fitness = new Fitness();
+
+	// TODO: make private and add accessor. im lazy
+	public Individual bestIndividual;
 	
     /**
      * Construct a new, random population
@@ -136,13 +139,12 @@ public class Population {
     }
 
     public Individual tournamentSelection(int tournamentSize) {
-		// INVERT
         Random rnd = new Random();
-        double best = 0.0;
+        double best = Double.MAX_VALUE;
         Individual winner = null;
         for (int i = 0; i < tournamentSize; i++) {
             Individual ind = allIndividuals.get(rnd.nextInt(allIndividuals.size()));
-            if (ind.getFitness() > best) {
+            if (ind.getFitness() < best) {
                 best = ind.getFitness();
                 winner = ind;
             }
@@ -170,6 +172,7 @@ public class Population {
         int i = 0;
 		double sum = 0.0;
 		double min = Double.MAX_VALUE;
+		Individual best = null;
 
         for (Individual indiv : allIndividuals) {
 
@@ -184,11 +187,14 @@ public class Population {
             indiv.setFitness(currentFitness);
             i++;
 			sum += currentFitness;
-			if (currentFitness < min)
+			if (currentFitness < min) {
 				min = currentFitness;
+				best = indiv;
+			}
         }
 		aggregateFitness = sum;
 		minimumFitness = min;
+		bestIndividual = best;
     }
 
     /**
