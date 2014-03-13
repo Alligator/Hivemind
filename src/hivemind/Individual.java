@@ -33,6 +33,10 @@ public class Individual {
             coefficients[i]=rangeMin+rand.nextDouble()*((rangeMax-rangeMin));
         }
     }
+    
+    public Individual(double[] coefficients){
+        this.coefficients=coefficients;
+    }
       
     
      /**
