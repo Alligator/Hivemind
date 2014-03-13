@@ -34,7 +34,9 @@ public class Individual {
         }
     }
     
-    public Individual(double[] coefficients){
+    public Individual(double[] coefficients, int rangeMin, int rangeMax){
+        this.rangeMax=rangeMax;
+        this.rangeMin=rangeMin;
         this.coefficients=coefficients;
     }
       
