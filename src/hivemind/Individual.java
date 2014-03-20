@@ -99,7 +99,10 @@ public class Individual {
     public void mutate(){
         int i = rand.nextInt(coefficients.length);
         //not sure if this is 0-1 or 0-0.999999... Might need to +1
-        coefficients[i]=rangeMin+rand.nextDouble()*((rangeMax-rangeMin));
+        // coefficients[i]=rangeMin+rand.nextDouble()*((rangeMax-rangeMin));
+        coefficients[i] += (coefficients[i]/100.0) * ((rand.nextDouble() * 2) - 1);
+		if (coefficients[i] > rangeMax) coefficients[i] = rangeMax;
+		if (coefficients[i] < rangeMin) coefficients[i] = rangeMin;
         // System.out.println(coefficients[i]);
     }
     

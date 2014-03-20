@@ -95,7 +95,7 @@ public class Hivemind {
 //        // Print everything to do with the population
 //        System.out.println("Population Fitness as aggregate is.." + popAggregateFitness);
 //       
-		run(50000);
+		run(100000);
     }
 
     public static void run(int iterations) {
@@ -103,28 +103,29 @@ public class Hivemind {
 
 		// these will be some kind of probability function in the final version
 		boolean crossover = true;
-		double mutationRate = 0.1;
+		double mutationRate = 0.15;
 
 		Random rnd = new Random();
 
 		int tournamentSize = 2;
 
 		// initial population
-		Population population = new Population(100, 0, 2);
+		Population population = new Population(100, -1000, 1000);
 
 		for (int i = 0; i < iterations; i++) {
 			population.setAllIndividualsFitness();
-			if (i % 100 == 0) {
+			if (i % 50 == 0) {
 				// population.print();
-				System.out.println(population.getAggregateFitness()/population.getSize());
+				System.out.println(i);
+				System.out.println(population.getAggregateFitness() / population.getSize());
 				System.out.println(population.getMinimumFitness());
 				System.out.println("------------------");
 			}
 			Population newPopulation = new Population();
 
-			// newPopulation.add(population.bestIndividual);
+			newPopulation.add(population.bestIndividual);
 
-			for (int j = 0; j < population.getSize(); j++) {
+			for (int j = 0; j < population.getSize()-1; j++) {
 				// for the size of the population (so it doesn't change) ...
 				if (crossover) {
 					// select two individuals for crossover
@@ -162,7 +163,7 @@ public class Hivemind {
 	private static Individual crossover(Individual ind1, Individual ind2) {
 		double[] c1 = ind1.getCoefficients();
 		double[] c2 = ind2.getCoefficients();
-		Individual result = new Individual(new double[]{c1[0], c2[1], c1[2], c2[3], c1[4], c2[5]}, ind1.getMin(), ind1.getMax());
+		Individual result = new Individual(new double[]{c1[0], c1[1], c1[2], c2[3], c2[4], c2[5]}, ind1.getMin(), ind1.getMax());
 		return result;
 	}
 }

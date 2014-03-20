@@ -169,29 +169,21 @@ public class Population {
      */
     public void setAllIndividualsFitness() {
         int genSize = getSize();
-        int i = 0;
 		double sum = 0.0;
 		double min = Double.MAX_VALUE;
 		Individual best = null;
 
         for (Individual indiv : allIndividuals) {
-
-            double[] indivCoefficients = indiv.getCoefficients();
-            double a = indivCoefficients[0];
-            double b = indivCoefficients[1];
-            double c = indivCoefficients[2];
-            double d = indivCoefficients[3];
-            double e = indivCoefficients[4];
-            double f = indivCoefficients[5];
-            double currentFitness = fitness.calculateCurveFitness(a, b, c, d, e, f, false);
+            double[] ic = indiv.getCoefficients();
+            double currentFitness = fitness.calculateCurveFitness(ic[0], ic[1], ic[2], ic[3], ic[4], ic[5], false);
             indiv.setFitness(currentFitness);
-            i++;
 			sum += currentFitness;
 			if (currentFitness < min) {
 				min = currentFitness;
 				best = indiv;
 			}
         }
+
 		aggregateFitness = sum;
 		minimumFitness = min;
 		bestIndividual = best;
