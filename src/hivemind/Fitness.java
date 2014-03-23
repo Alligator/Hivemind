@@ -23,8 +23,8 @@ public class Fitness {
     
     public Fitness() {
         sampleDataPoints = new HashMap<>(); // FITNESS CLASS
-        // fillSampleDataPoints(); // FINTESS CLASS
-        fillTestDataPoints(); // FINTESS CLASS
+        fillSampleDataPoints(); // FINTESS CLASS
+        // fillTestDataPoints(); // FINTESS CLASS
     }
    
     

@@ -95,7 +95,7 @@ public class Hivemind {
 //        // Print everything to do with the population
 //        System.out.println("Population Fitness as aggregate is.." + popAggregateFitness);
 //       
-		run(50000);
+		run(10000);
     }
 
     public static void run(int iterations) {
@@ -103,18 +103,18 @@ public class Hivemind {
 
 		// these will be some kind of probability function in the final version
 		boolean crossover = true;
-		double mutationRate = 0.1;
+		double mutationRate = 0.15;
 
 		Random rnd = new Random();
 
 		int tournamentSize = 2;
 
 		// initial population
-		Population population = new Population(100, 0, 2);
+		Population population = new Population(100, -1000, 1000);
 
 		for (int i = 0; i < iterations; i++) {
 			population.setAllIndividualsFitness();
-			if (i % 100 == 0) {
+			if (i % 50 == 0) {
 				// population.print();
 				System.out.println(population.getAggregateFitness()/population.getSize());
 				System.out.println(population.getMinimumFitness());
