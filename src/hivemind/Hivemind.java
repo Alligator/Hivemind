@@ -108,7 +108,7 @@ public class Hivemind {
 		String dat = new String();
 
 		// these will be some kind of probability function in the final version
-		boolean crossover = true;
+		double crossoverRate = 0.8;
 		double mutationRate = 0.25;
 
 		Random rnd = new Random();
@@ -133,7 +133,7 @@ public class Hivemind {
 
 			for (int j = 0; j < population.getSize(); j++) {
 				// for the size of the population (so it doesn't change) ...
-				if (crossover) {
+				if (rnd.nextDouble() < crossoverRate) {
 					// select two individuals for crossover
 					Individual ind1 = population.tournamentSelection(tournamentSize);
 					Individual ind2 = population.tournamentSelection(tournamentSize);
@@ -149,10 +149,13 @@ public class Hivemind {
 
 					// add the result to the new population
 					newPopulation.add(result);
+				} else {
+					newPopulation.add(population.tournamentSelection(tournamentSize));
 				}
 			}
 			dat += i + "\t" + population.getMinimumFitness()
-				+ "\t" + (population.getAggregateFitness()/population.getSize()) + "\n";
+				+ "\t" + (population.getAggregateFitness()/population.getSize())
+				+ "\t" + population.getMaxnimmFitness() + "\n";
 			population = newPopulation;
 		}
 

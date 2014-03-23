@@ -13,6 +13,7 @@ public class Population {
     private ArrayList<Individual> allIndividuals;
     private double aggregateFitness;
 	private double minimumFitness;
+	private double maximumFitness;
     private int populationSize;
 
 	// the fitness values live in the individuals themselves
@@ -23,6 +24,7 @@ public class Population {
 
 	// TODO: make private and add accessor. im lazy
 	public Individual bestIndividual;
+	public Individual worstIndividual;
 	
     /**
      * Construct a new, random population
@@ -62,6 +64,10 @@ public class Population {
 
 	public double getMinimumFitness() {
 		return minimumFitness;
+	}
+
+	public double getMaxnimmFitness() {
+		return maximumFitness;
 	}
     
     /**
@@ -172,7 +178,9 @@ public class Population {
         int i = 0;
 		double sum = 0.0;
 		double min = Double.MAX_VALUE;
+		double max = Double.MIN_VALUE;
 		Individual best = null;
+		Individual worst = null;
 
         for (Individual indiv : allIndividuals) {
 
@@ -191,10 +199,18 @@ public class Population {
 				min = currentFitness;
 				best = indiv;
 			}
+			if (currentFitness > max) {
+				max = currentFitness;
+				worst = indiv;
+			}
         }
 		aggregateFitness = sum;
+
 		minimumFitness = min;
+		maximumFitness = max;
+
 		bestIndividual = best;
+		worstIndividual = worst;
     }
 
     /**
