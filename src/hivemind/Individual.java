@@ -117,7 +117,9 @@ public class Individual {
         for(int j=0; j<=mutateQuantity;){
             i = rand.nextInt(coefficients.length);
             if(!record.contains(i)){
-                coefficients[i]=rangeMin+rand.nextDouble()*((rangeMax-rangeMin));
+                coefficients[i] += (coefficients[i]/100.0) * ((rand.nextDouble() * 2) - 1);
+                if (coefficients[i] > rangeMax) coefficients[i] = rangeMax;
+		if (coefficients[i] < rangeMin) coefficients[i] = rangeMin;
                 record.add(i);
                 j++;
             }
