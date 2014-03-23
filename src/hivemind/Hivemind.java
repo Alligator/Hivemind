@@ -5,9 +5,14 @@
  */
 
 package hivemind;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -95,15 +100,16 @@ public class Hivemind {
 //        // Print everything to do with the population
 //        System.out.println("Population Fitness as aggregate is.." + popAggregateFitness);
 //       
-		run(10000);
+		run(5000);
     }
 
     public static void run(int iterations) {
 		// not intended to work, just hammering out details
+		String dat = new String();
 
 		// these will be some kind of probability function in the final version
 		boolean crossover = true;
-		double mutationRate = 0.15;
+		double mutationRate = 0.25;
 
 		Random rnd = new Random();
 
@@ -114,8 +120,9 @@ public class Hivemind {
 
 		for (int i = 0; i < iterations; i++) {
 			population.setAllIndividualsFitness();
-			if (i % 50 == 0) {
+			if (i % 100 == 0) {
 				// population.print();
+				System.out.println(i);
 				System.out.println(population.getAggregateFitness()/population.getSize());
 				System.out.println(population.getMinimumFitness());
 				System.out.println("------------------");
@@ -144,6 +151,8 @@ public class Hivemind {
 					newPopulation.add(result);
 				}
 			}
+			dat += i + "\t" + population.getMinimumFitness()
+				+ "\t" + (population.getAggregateFitness()/population.getSize()) + "\n";
 			population = newPopulation;
 		}
 
@@ -151,6 +160,14 @@ public class Hivemind {
 		Fitness f = new Fitness();
 		double[] b = population.bestIndividual.getCoefficients();
 		System.out.println(f.printPlotGNUCommands("", b[0], b[1], b[2], b[3], b[4], b[5]));
+
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter("output.dat"));
+			bw.write(dat);
+			bw.close();
+		} catch (IOException ex) {
+			Logger.getLogger(Hivemind.class.getName()).log(Level.SEVERE, null, ex);
+		}
     }
 
 	/**
