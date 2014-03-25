@@ -51,7 +51,7 @@ public class Hivemind {
 			Population newPopulation = new Population();
 
 			// elitism
-			newPopulation.add(population.bestIndividual);
+			newPopulation.add(population.getBestIndividual());
 
 			for (int j = 0; j < population.getSize()-1; j++) {
 				if (rnd.nextDouble() < CROSSOVER_RATE) {
@@ -81,8 +81,7 @@ public class Hivemind {
 
 		population.setAllIndividualsFitness();
 		Fitness f = new Fitness();
-		double[] b = population.bestIndividual.getCoefficients();
-		System.out.println(f.printPlotGNUCommands("", b[0], b[1], b[2], b[3], b[4], b[5]));
+		System.out.println(f.printPlotGNUCommands(population.getBestIndividual()));
 
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("output.dat"));
