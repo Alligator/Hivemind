@@ -183,15 +183,7 @@ public class Population {
 		Individual worst = null;
 
         for (Individual indiv : allIndividuals) {
-
-            double[] indivCoefficients = indiv.getCoefficients();
-            double a = indivCoefficients[0];
-            double b = indivCoefficients[1];
-            double c = indivCoefficients[2];
-            double d = indivCoefficients[3];
-            double e = indivCoefficients[4];
-            double f = indivCoefficients[5];
-            double currentFitness = fitness.calculateCurveFitness(a, b, c, d, e, f, false);
+            double currentFitness = fitness.calculateCurveFitness(indiv, false);
             indiv.setFitness(currentFitness);
             i++;
 			sum += currentFitness;
