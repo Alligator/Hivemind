@@ -31,7 +31,6 @@ public class Fitness {
 	public String printPlotGNUCommands(Individual ind) {
 		double[] c = ind.getCoefficients();
 		return String.format("plot %f + (%f * x) + (%f * (x**2)) + (%f * (x**3)) + (%f * (x**4)) + (%f * (x**5))", c[0], c[1], c[2], c[3], c[4], c[5]);
-		// return "plot " + a + " + (" + b + "*x)+ " + "(" + c + "*(x**2))+" + "(" + d + "*(x**3))+" + "(" + e + "*(x**4)) + " + "(" + f + "*(x**5))";
 	}
 	
 	/**
