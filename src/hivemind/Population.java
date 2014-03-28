@@ -9,22 +9,23 @@ import java.util.Random;
  * @author Gia
  */
 public class Population {
-	
+
 	private ArrayList<Individual> allIndividuals;
 	private double aggregateFitness;
 	private double minimumFitness;
 	private double maximumFitness;
-	
+
 	private static final Fitness fitness = new Fitness();
-	
+
 	private Individual bestIndividual;
 	private Individual worstIndividual;
-	
+
 	/**
 	 * Construct a new, random population
+	 *
 	 * @param size The size of the population to generate
-	 * @param min  The minimum value for the coefficients
-	 * @param max  The maximum value for the coefficients
+	 * @param min The minimum value for the coefficients
+	 * @param max The maximum value for the coefficients
 	 */
 	public Population(int size, int min, int max) {
 		allIndividuals = new ArrayList<Individual>();
@@ -32,9 +33,10 @@ public class Population {
 			allIndividuals.add(new Individual(min, max));
 		}
 	}
-	
+
 	/**
-	 * Convenience method to print the entire populations coefficients and fitness
+	 * Convenience method to print the entire populations coefficients and
+	 * fitness
 	 */
 	public void print() {
 		for (Individual ind : allIndividuals) {
@@ -43,48 +45,53 @@ public class Population {
 			System.out.println(ind.getFitness());
 		}
 	}
-	
+
 	/**
 	 * Construct a new, empty population
 	 */
 	public Population() {
 		allIndividuals = new ArrayList<Individual>();
 	}
-	
+
 	/**
 	 * Add an individual to the population
+	 *
 	 * @param ind The individual to be added
 	 */
 	public void add(Individual ind) {
 		allIndividuals.add(ind);
 	}
-	
+
 	/**
 	 * Get the populations size (number of individuals)
+	 *
 	 * @return The size of the population
 	 */
 	public int getSize() {
 		return allIndividuals.size();
 	}
-	
+
 	/**
 	 * Get the lowest fitness value in the population
+	 *
 	 * @return the fitness value
 	 */
 	public double getMinimumFitness() {
 		return minimumFitness;
 	}
-	
+
 	/**
 	 * Get the highest fitness value in the population
+	 *
 	 * @return the fitness value
 	 */
 	public double getMaxnimmFitness() {
 		return maximumFitness;
 	}
-	
+
 	/**
-	 * Method to return an individual by  roulette wheel Selection
+	 * Method to return an individual by roulette wheel Selection
+	 *
 	 * @return Individual
 	 */
 	public Individual rouletteWheelSelection() {
@@ -96,20 +103,20 @@ public class Population {
 		double fitnessPercentOfEach[] = new double[allIndividuals.size()];
 		double invertedFitnessOfEach[] = new double[allIndividuals.size()];
 		Individual selectedIndividual = new Individual(0, 1);
-		
+
 		Individual allIndividualsTmp[] = new Individual[allIndividuals.size()];
-		
+
 		for (int i = 0; i < allIndividuals.size(); i++) {
 			allIndividualsTmp[i] = allIndividuals.get(i);
 		}
-		
+
 		for (int i = 0; i < allIndividuals.size(); i++) {
 			double currentFitness = allIndividualsTmp[i].getFitness();
 			double fitnessRatio = currentFitness / aggregateFitness;
 			fitnessPercentOfEach[i] = fitnessRatio;
 			totalPercentCheck += fitnessPercentOfEach[i];
 		}
-		
+
 		// Invert the fitness ratio, because the fittest are closest to zero
 		// This is stored in an array
 		// This can't be done in the previous for loop, because it needs the total percent check
@@ -117,14 +124,14 @@ public class Population {
 			invertedFitnessOfEach[i] = totalPercentCheck - fitnessPercentOfEach[i];
 			invertedTotal += invertedFitnessOfEach[i];
 		}
-		
+
 		// Set up the roulette Wheel
 		// This can't be done in the previous for loop, because it needs the inverted total
 		for (int i = 0; i < allIndividuals.size(); i++) {
 			finalTotalPercentCheck += invertedFitnessOfEach[i] / invertedTotal;
 			rouletteWheel[i] = finalTotalPercentCheck;
 		}
-		
+
 		// Now spin the roulette wheel
 		for (int i = 0; i < rouletteWheel.length; i++) {
 			double roulNum = rouletteWheel[i];
@@ -133,12 +140,13 @@ public class Population {
 				break;
 			}
 		}
-		
+
 		return selectedIndividual;
 	}
-	
+
 	/**
 	 * Selects an individual from the population using tournament selection
+	 *
 	 * @param tournamentSize The size of the tournament to run
 	 * @return The selected individual
 	 */
@@ -158,15 +166,16 @@ public class Population {
 
 		return winner;
 	}
-	
+
 	/**
 	 * Get the total fitness for the whole population (aggregate fitness)
+	 *
 	 * @return double value, aggregate fitness of whole population
 	 */
 	public double getAggregateFitness() {
 		return this.aggregateFitness;
 	}
-	
+
 	/**
 	 * Set the each Individual's fitness for the whole population Calls the
 	 * calcCurveFitness method
@@ -179,7 +188,7 @@ public class Population {
 		double max = Double.MIN_VALUE;
 		Individual best = null;
 		Individual worst = null;
-		
+
 		for (Individual indiv : allIndividuals) {
 			double currentFitness = fitness.calculateCurveFitness(indiv, false);
 			indiv.setFitness(currentFitness);
@@ -195,21 +204,21 @@ public class Population {
 			}
 		}
 		aggregateFitness = sum;
-		
+
 		minimumFitness = min;
 		maximumFitness = max;
-		
+
 		bestIndividual = best;
 		worstIndividual = worst;
 	}
-	
+
 	/**
 	 * @return the best (fittest) individual in the population
 	 */
 	public Individual getBestIndividual() {
 		return bestIndividual;
 	}
-	
+
 	/**
 	 * @return the worst (least fit) individual in the population
 	 */

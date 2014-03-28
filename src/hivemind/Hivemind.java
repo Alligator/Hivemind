@@ -12,26 +12,28 @@ import java.util.logging.Logger;
  * @author reece
  */
 public class Hivemind {
-	private static final int	ITERATIONS		= 10000;
 
-	private static final int	POPULATION_SIZE = 100;
-	private static final int	MIN_RANGE		= -10000;
-	private static final int	MAX_RANGE		= 10000;
+	private static final int ITERATIONS = 10000;
 
-	private static final double CROSSOVER_RATE	= 0.9;
-	private static final double MUTATION_RATE	= 0.45;
+	private static final int POPULATION_SIZE = 100;
+	private static final int MIN_RANGE = -10000;
+	private static final int MAX_RANGE = 10000;
 
-	private static final int	TOURNAMENT_SIZE = 4;
+	private static final double CROSSOVER_RATE = 0.9;
+	private static final double MUTATION_RATE = 0.45;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+	private static final int TOURNAMENT_SIZE = 4;
+
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
 		run(ITERATIONS);
-    }
+	}
 
 	/**
 	 * Runs the main GA loop.
+	 *
 	 * @param iterations The number of iterations (generations) to run for.
 	 */
 	public static void run(int iterations) {
@@ -45,7 +47,7 @@ public class Hivemind {
 			population.setAllIndividualsFitness();
 			if (i % 100 == 0) {
 				System.out.println(i);
-				System.out.println(population.getAggregateFitness()/population.getSize());
+				System.out.println(population.getAggregateFitness() / population.getSize());
 				System.out.println(population.getMinimumFitness());
 				System.out.println("------------------");
 			}
@@ -54,7 +56,7 @@ public class Hivemind {
 			// elitism
 			newPopulation.add(population.getBestIndividual());
 
-			for (int j = 0; j < population.getSize()-1; j++) {
+			for (int j = 0; j < population.getSize() - 1; j++) {
 				if (rnd.nextDouble() < CROSSOVER_RATE) {
 					Individual ind1 = population.tournamentSelection(TOURNAMENT_SIZE);
 					Individual ind2 = population.tournamentSelection(TOURNAMENT_SIZE);
@@ -75,7 +77,7 @@ public class Hivemind {
 
 			// tsv output, for later graphing
 			dat += i + "\t" + population.getMinimumFitness()
-				+ "\t" + (population.getAggregateFitness()/population.getSize())
+				+ "\t" + (population.getAggregateFitness() / population.getSize())
 				+ "\t" + population.getMaxnimmFitness() + "\n";
 			population = newPopulation;
 		}
@@ -91,13 +93,14 @@ public class Hivemind {
 		} catch (IOException ex) {
 			Logger.getLogger(Hivemind.class.getName()).log(Level.SEVERE, null, ex);
 		}
-    }
+	}
 
 	/**
 	 * Fixed point crossover
-	 * @param ind1  The individual to take the first three coefficients from
-	 * @param ind2  The individual to take the second three coefficients from
-	 * @return      The new individual
+	 *
+	 * @param ind1 The individual to take the first three coefficients from
+	 * @param ind2 The individual to take the second three coefficients from
+	 * @return The new individual
 	 */
 	private static Individual crossover(Individual ind1, Individual ind2) {
 		double[] c1 = ind1.getCoefficients();
